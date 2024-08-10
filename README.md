@@ -1,8 +1,12 @@
 next js / mock service worker
 
+# 対象コミット
+
+https://github.com/yamamoto04150422/next-msw/commit/0f4e5bb4608d6090a745388b35963546f4bca7e5
+
 # 参考リンク
 
-https://github.com/mswjs/msw/issues/1877
+https://github.com/mswgit remote add originjs/msw/issues/1877
 
 ## 手順
 
