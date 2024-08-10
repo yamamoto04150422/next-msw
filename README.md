@@ -1,3 +1,14 @@
+next js / mock service worker
+
+# 参考リンク
+
+https://github.com/mswjs/msw/issues/1877
+
+## 手順
+
+1. npm install msw --save-dev
+1. npx msw init public/ --save
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
