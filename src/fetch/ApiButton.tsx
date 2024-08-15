@@ -1,15 +1,16 @@
 // src/components/ApiButton.tsx
+import { apiRequest } from "@/mocks/api";
+import { Post } from "@/mocks/handlers";
 import React from "react";
 
 const ApiButton: React.FC = () => {
   const fetchPosts = async () => {
     try {
-      const response = await fetch("/api/posts");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Posts:", data);
+      const posts = await apiRequest<Post[]>({
+        method: "GET",
+        url: "/api/posts",
+      });
+      console.log("Posts:", posts);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -17,18 +18,12 @@ const ApiButton: React.FC = () => {
 
   const createPost = async () => {
     try {
-      const response = await fetch("/api/posts", {
+      const newPost = await apiRequest<Post>({
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: 3, title: "New Post" }),
+        url: "/api/posts",
+        body: { id: 3, title: "New Post" },
       });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Created Post:", data);
+      console.log("Created Post:", newPost);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -36,12 +31,11 @@ const ApiButton: React.FC = () => {
 
   const fetchPostById = async (id: number) => {
     try {
-      const response = await fetch(`/api/posts/${id}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Fetched Post:", data);
+      const post = await apiRequest<Post>({
+        method: "GET",
+        url: `/api/posts/${id}`,
+      });
+      console.log("Fetched Post:", post);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -49,18 +43,12 @@ const ApiButton: React.FC = () => {
 
   const updatePostById = async (id: number, title: string) => {
     try {
-      const response = await fetch(`/api/posts/${id}`, {
+      const updatedPost = await apiRequest<Post>({
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title }),
+        url: `/api/posts/${id}`,
+        body: { title },
       });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Updated Post:", data);
+      console.log("Updated Post:", updatedPost);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -68,18 +56,12 @@ const ApiButton: React.FC = () => {
 
   const createComment = async () => {
     try {
-      const response = await fetch("/api/comments", {
+      const newComment = await apiRequest<Comment>({
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ postId: 1, content: "This is a comment" }),
+        url: "/api/comments",
+        body: { postId: 1, content: "This is a comment" },
       });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("Created Comment:", data);
+      console.log("Created Comment:", newComment);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }

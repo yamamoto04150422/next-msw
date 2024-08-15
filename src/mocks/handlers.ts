@@ -1,7 +1,7 @@
 // src/mocks/handlers.ts
 import { http, HttpResponse } from "msw";
 
-type Post = {
+export type Post = {
   id: number;
   title: string;
 };
