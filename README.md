@@ -1,4 +1,7 @@
-next js / mock service worker
+1. next js
+1. mock service worker
+1. Jest && React-Testing-Library
+1. eslint && prettier
 
 # 対象コミット
 
