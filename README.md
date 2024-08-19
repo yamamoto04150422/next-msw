@@ -50,6 +50,19 @@ npm install --save-dev eslint-config-prettier eslint-plugin-prettier
 
 ```
 
+## Jest React-Testing-Library　追加
+
+```bash
+
+npm i -D jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom babel-jest @testing-library/user-event jest-css-modules
+
+npm install ts-node --save-dev
+
+npm install jest-environment-jsdom --save-dev
+
+
+```
+
 ## Getting Started
 
 First, run the development server:
