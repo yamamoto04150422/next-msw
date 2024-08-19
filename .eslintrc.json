@@ -1,3 +1,60 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true, // ブラウザ環境用のグローバル変数を許可
+    "es2021": true, // 最新のECMAScript機能をサポート
+    "node": true // Node.jsのグローバル変数を許可
+  },
+  "extends": [
+    "eslint:recommended", // 推奨ルールセットを使用
+    "plugin:@typescript-eslint/recommended", // TypeScript向けの推奨ルールセット
+    "plugin:react/recommended", // React向けの推奨ルールセット
+    "plugin:react-hooks/recommended", // React Hooks向けの推奨ルールセット
+    "plugin:jsx-a11y/recommended", // アクセシビリティ向けの推奨ルールセット
+    "plugin:import/errors", // インポートエラーの検出
+    "plugin:import/warnings", // インポート警告の検出
+    "plugin:import/typescript", // TypeScriptインポートサポート
+    "next", // Next.jsに特化したESLint設定
+    "next/core-web-vitals", // Next.jsのパフォーマンス最適化
+    "prettier" // Prettierとの競合を無効化
+  ],
+  "parser": "@typescript-eslint/parser", // TypeScriptコードの解析に使用
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true // JSXのサポートを有効化
+    },
+    "ecmaVersion": 12, // 最新のECMAScript機能を使用
+    "sourceType": "module" // モジュール構文を使用
+  },
+  "plugins": [
+    "@typescript-eslint", // TypeScript用プラグイン
+    "react", // React用プラグイン
+    "react-hooks", // React Hooks用プラグイン
+    "jsx-a11y", // アクセシビリティ用プラグイン
+    "import", // インポート用プラグイン
+    "prettier" // Prettier用プラグイン
+  ],
+  "rules": {
+    "prettier/prettier": "error", // Prettierによるスタイル違反をエラーとして扱う
+    "react/react-in-jsx-scope": "off", // React 17+では不要なルールを無効化
+    "@typescript-eslint/explicit-module-boundary-types": "off", // 関数の戻り値の型を明示しない場合のエラーを無効化
+    "import/order": [
+      "error",
+      {
+        // インポート順序を整理するためのルール
+        "groups": [["builtin", "external", "internal"]],
+        "newlines-between": "always"
+      }
+    ],
+    "complexity": ["warn", 5]
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // インストールされているReactのバージョンを自動検出
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }

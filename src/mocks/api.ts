@@ -1,4 +1,4 @@
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface ApiRequestOptions {
   method: HttpMethod;
@@ -14,12 +14,12 @@ export async function apiRequest<T>({
   params,
 }: ApiRequestOptions): Promise<T> {
   const headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   };
 
   const queryString = params
-    ? "?" + new URLSearchParams(params).toString()
-    : "";
+    ? '?' + new URLSearchParams(params).toString()
+    : '';
 
   const response = await fetch(url + queryString, {
     method,

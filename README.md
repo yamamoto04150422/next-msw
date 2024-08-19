@@ -35,6 +35,21 @@ https://github.com/mswgit remote add originjs/msw/issues/1877
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## prettierを追加
+
+eslint-config-prettier:
+
+これは、ESLint と Prettier の競合を避けるための設定を提供します。ESLint のいくつかのルールは Prettier のルールと衝突することがあるので、この設定を使うことで、ESLint が Prettier のルールを上書きしないようにします。
+
+eslint-plugin-prettier:
+これは、ESLint の中で Prettier を実行できるようにするプラグインです。Prettier のルールを ESLint のルールとして扱い、コードが Prettier のフォーマットに従っているかどうかをチェックします。
+
+```bash
+
+npm install --save-dev eslint-config-prettier eslint-plugin-prettier
+
+```
+
 ## Getting Started
 
 First, run the development server:
