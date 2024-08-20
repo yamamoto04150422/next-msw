@@ -70,6 +70,10 @@ npm install jest-environment-jsdom --save-dev
 
 https://qiita.com/ktanoooo/items/64cad61096cf45f18c24
 
+## react fooks form
+
+npm install react-hook-form
+
 ## Getting Started
 
 First, run the development server:
