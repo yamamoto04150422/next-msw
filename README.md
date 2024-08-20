@@ -57,7 +57,7 @@ npm install --save-dev eslint-config-prettier eslint-plugin-prettier
 
 ```bash
 
-npm i -D jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom babel-jest @testing-library/user-event jest-css-modules
+npm i -D jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom  @testing-library/user-event jest-css-modules
 
 npm install ts-node --save-dev
 
@@ -65,6 +65,10 @@ npm install jest-environment-jsdom --save-dev
 
 
 ```
+
+## 環境変数について
+
+https://qiita.com/ktanoooo/items/64cad61096cf45f18c24
 
 ## Getting Started
 
