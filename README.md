@@ -2,6 +2,8 @@
 1. mock service worker
 1. Jest && React-Testing-Library
 1. eslint && prettier
+1. 状態管理　jotai
+1. material　UI　and UseController
 
 # 対象コミット
 
