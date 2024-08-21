@@ -23,6 +23,11 @@ export default function Home() {
       <h1>
         <Link href="/fooksform/usecontroller">fooksform/usecontroller</Link>
       </h1>
+      <h1>
+        <Link href="/fooksform/usecontroller/grid">
+          fooksform/usecontroller/grid
+        </Link>
+      </h1>
     </main>
   );
 }
