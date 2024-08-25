@@ -1,13 +1,24 @@
-// src/theme.ts
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#1976d2",
+      main: "#0070f3", // メインのプライマリカラー
     },
     secondary: {
-      main: "#dc004e",
+      main: "#ff4081", // メインのセカンダリカラー
+    },
+    background: {
+      default: "#f9f9f9", // デフォルトの背景色
+    },
+  },
+  typography: {
+    fontFamily: "Arial, sans-serif", // フォントファミリー
+    h1: {
+      fontSize: "2rem", // h1のフォントサイズ
+    },
+    body1: {
+      fontSize: "1rem", // 通常のテキストのフォントサイズ
     },
   },
 });
