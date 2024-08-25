@@ -1,0 +1,51 @@
+/* next-basic/app/styles/global.css */
+
+/* CSSリセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HTMLおよびボディ全体のスタイル */
+html,
+body {
+  font-family: "Arial", sans-serif; /* フォントの指定 */
+  font-size: 16px; /* ベースのフォントサイズ */
+  color: #333; /* テキストカラー */
+  background-color: #f9f9f9; /* 背景色 */
+  line-height: 1.5; /* 行の高さ */
+}
+
+/* リンクのスタイル */
+a {
+  color: #000000; /* リンクの色 */
+  text-decoration: none; /* アンダーラインを消す */
+  transition: color 0.3s ease; /* 色の変化にトランジションを追加 */
+}
+
+a:hover {
+  color: #0056b3; /* ホバー時のリンクの色 */
+}
+
+/* ナビゲーションメニューのスタイル */
+nav ul {
+  list-style-type: none; /* リストのバレットを消す */
+  padding: 0;
+}
+
+nav ul li {
+  display: inline; /* リストを横並びに */
+  margin-right: 20px; /* リスト間のスペース */
+}
+
+/* フッターのスタイル */
+footer {
+  text-align: center; /* テキストを中央に揃える */
+  padding: 20px 0; /* 上下の余白 */
+  background-color: #f0f0f0; /* フッターの背景色 */
+  color: #666; /* フッターのテキスト色 */
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
