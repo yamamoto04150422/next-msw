@@ -4,6 +4,7 @@
 1. eslint && prettier
 1. 状態管理　jotai
 1. material　UI　and UseController
+1. theme global.css共存
 
 # 対象コミット
 
