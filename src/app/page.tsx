@@ -5,6 +5,8 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
+import Counter from "./components/Counter";
+import AuthContent from "./components/AuthContent";
 
 export default function Home() {
   const router = useRouter();
@@ -19,7 +21,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div>
-        <h1>ホームページ</h1>
+        <h1>ホームページ useRouter</h1>
         <Button variant="contained" color="primary" onClick={navigateToAbout}>
           Aboutページへ
         </Button>
@@ -31,6 +33,12 @@ export default function Home() {
         >
           Contactページへ
         </Button>
+      </div>
+      <hr />
+      <div>
+        <h1>ホームページ Jotai</h1>
+        <Counter />
+        <AuthContent />
       </div>
       <h1>
         <Link href="/api">/api</Link>
