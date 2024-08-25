@@ -4,7 +4,8 @@
 1. eslint && prettier
 1. 状態管理　jotai
 1. material　UI　and UseController
-1. theme global.css共存
+1. theme global.css共存 PJの共通定義
+1. useRouteを使用 動的なページ遷移方法
 
 # 対象コミット
 
