@@ -6,7 +6,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
 import "../app/styles/global.css";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import HeaderTop from "./components/HeaderTop";
+import HeaderSide from "./components/HeaderSide";
 
 export default function RootLayout({
   children,
@@ -19,29 +21,18 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {/* 既存のレイアウトやコンポーネント */}
-          <Container maxWidth="lg">
-            <header>
-              <nav>
-                {/* ナビゲーションメニューの例 */}
-                <ul>
-                  <li>
-                    <a href="/">ホーム</a>
-                  </li>
-                  <li>
-                    <a href="/about">アバウト</a>
-                  </li>
-                  <li>
-                    <a href="/contact">コンタクト</a>
-                  </li>
-                </ul>
-              </nav>
-            </header>
-            <main>{children}</main> {/* 子コンポーネントをレンダリング */}
-            <footer>
-              {/* フッターの例 */}
-              <p>&copy; 2024 Your Company. All rights reserved.</p>
-            </footer>
-          </Container>
+          <HeaderTop />
+          <Box sx={{ display: "flex" }}>
+            <HeaderSide />
+            <Box component="main" sx={{ flexGrow: 1, padding: 3 }}>
+              {children}
+            </Box>
+          </Box>
+          <main>{children}</main> {/* 子コンポーネントをレンダリング */}
+          <footer>
+            {/* フッターの例 */}
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+          </footer>
         </ThemeProvider>
       </body>
     </html>
