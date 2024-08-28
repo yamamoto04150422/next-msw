@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 "use client";
 
 import React from "react";
@@ -6,7 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
 import "../app/styles/global.css";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import HeaderTop from "./components/HeaderTop";
 import HeaderSide from "./components/HeaderSide";
 
@@ -15,20 +14,35 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // HeaderTopの高さとHeaderSideの幅を変数として管理
+  const headerTopHeight = 64; // 例: 64px (必要に応じて調整)
+  const headerSideWidth = 240; // 例: 240px (必要に応じて調整)
+
   return (
     <html lang="ja">
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {/* 既存のレイアウトやコンポーネント */}
+          {/* ヘッダーの配置 */}
           <HeaderTop />
           <Box sx={{ display: "flex" }}>
+            {/* サイドバー */}
             <HeaderSide />
-            <Box component="main" sx={{ flexGrow: 1, padding: 3 }}>
+            {/* メインコンテンツ領域 */}
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                padding: 3,
+                height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
+                marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
+                marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
+                overflowY: "auto", // コンテンツが溢れた場合のスクロール
+              }}
+            >
               {children}
             </Box>
           </Box>
-          <main>{children}</main> {/* 子コンポーネントをレンダリング */}
           <footer>
             {/* フッターの例 */}
             <p>&copy; 2024 Your Company. All rights reserved.</p>
