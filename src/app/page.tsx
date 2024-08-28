@@ -63,6 +63,9 @@ export default function Home() {
           fooksform/usecontroller/grid
         </Link>
       </h1>
+      <h1>
+        <Link href="/table">table</Link>
+      </h1>
     </main>
   );
 }
