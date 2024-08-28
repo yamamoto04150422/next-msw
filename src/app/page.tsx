@@ -66,6 +66,9 @@ export default function Home() {
       <h1>
         <Link href="/table">table</Link>
       </h1>
+      <h1>
+        <Link href="/grid">grid</Link>
+      </h1>
     </main>
   );
 }
