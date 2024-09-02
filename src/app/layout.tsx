@@ -8,6 +8,8 @@ import "../app/styles/global.css";
 import { Box } from "@mui/material";
 import HeaderTop from "./components/HeaderTop";
 import HeaderSide from "./components/HeaderSide";
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 export default function RootLayout({
   children,
@@ -21,33 +23,35 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* ヘッダーの配置 */}
-          <HeaderTop />
-          <Box sx={{ display: "flex" }}>
-            {/* サイドバー */}
-            <HeaderSide />
-            {/* メインコンテンツ領域 */}
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                padding: 3,
-                height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
-                marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
-                marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
-                overflowY: "auto", // コンテンツが溢れた場合のスクロール
-              }}
-            >
-              {children}
+        <PrimeReactProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {/* ヘッダーの配置 */}
+            <HeaderTop />
+            <Box sx={{ display: "flex" }}>
+              {/* サイドバー */}
+              <HeaderSide />
+              {/* メインコンテンツ領域 */}
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  padding: 3,
+                  height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
+                  marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
+                  marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
+                  overflowY: "auto", // コンテンツが溢れた場合のスクロール
+                }}
+              >
+                {children}
+              </Box>
             </Box>
-          </Box>
-          <footer>
-            {/* フッターの例 */}
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
-          </footer>
-        </ThemeProvider>
+            <footer>
+              {/* フッターの例 */}
+              <p>&copy; 2024 Your Company. All rights reserved.</p>
+            </footer>
+          </ThemeProvider>
+        </PrimeReactProvider>
       </body>
     </html>
   );

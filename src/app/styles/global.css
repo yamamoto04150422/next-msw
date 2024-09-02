@@ -1,15 +1,17 @@
 /* next-basic/app/styles/global.css */
 
 /* CSSリセット */
-* {
+/* * */
+.test {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 /* HTMLおよびボディ全体のスタイル */
-html,
-body {
+/* html,
+body */
+.test {
   font-family: "Arial", sans-serif; /* フォントの指定 */
   font-size: 16px; /* ベースのフォントサイズ */
   color: #333; /* テキストカラー */
