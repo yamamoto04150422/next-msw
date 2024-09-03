@@ -80,7 +80,7 @@ const mockData: Product[] = [
   },
 ];
 
-const defaultEmptyRows: Product[] = Array(5).fill({
+const defaultEmptyRows: Product[] = Array(11).fill({
   id: "",
   code: "",
   name: "",
