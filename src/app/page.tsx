@@ -77,6 +77,9 @@ export default function Home() {
       <h1>
         <Link href="/primeReact/menuBar">primeReact/menuBar</Link>
       </h1>
+      <h1>
+        <Link href="/primeReact/table">primeReact/table</Link>
+      </h1>
     </main>
   );
 }
