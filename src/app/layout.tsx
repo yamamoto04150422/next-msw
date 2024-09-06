@@ -23,35 +23,35 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <PrimeReactProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {/* ヘッダーの配置 */}
-            <HeaderTop />
-            <Box sx={{ display: "flex" }}>
-              {/* サイドバー */}
-              <HeaderSide />
-              {/* メインコンテンツ領域 */}
-              <Box
-                component="main"
-                sx={{
-                  flexGrow: 1,
-                  padding: 3,
-                  height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
-                  marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
-                  marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
-                  overflowY: "auto", // コンテンツが溢れた場合のスクロール
-                }}
-              >
-                {children}
-              </Box>
+        {/* <PrimeReactProvider> */}
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {/* ヘッダーの配置 */}
+          <HeaderTop />
+          <Box sx={{ display: "flex" }}>
+            {/* サイドバー */}
+            <HeaderSide />
+            {/* メインコンテンツ領域 */}
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                padding: 3,
+                height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
+                marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
+                marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
+                overflowY: "auto", // コンテンツが溢れた場合のスクロール
+              }}
+            >
+              {children}
             </Box>
-            <footer>
-              {/* フッターの例 */}
-              <p>&copy; 2024 Your Company. All rights reserved.</p>
-            </footer>
-          </ThemeProvider>
-        </PrimeReactProvider>
+          </Box>
+          <footer>
+            {/* フッターの例 */}
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+          </footer>
+        </ThemeProvider>
+        {/* </PrimeReactProvider> */}
       </body>
     </html>
   );

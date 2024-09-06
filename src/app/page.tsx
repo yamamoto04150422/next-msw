@@ -80,6 +80,9 @@ export default function Home() {
       <h1>
         <Link href="/primeReact/table">primeReact/table</Link>
       </h1>
+      <h1>
+        <Link href="/mui/table">mui/table</Link>
+      </h1>
     </main>
   );
 }
