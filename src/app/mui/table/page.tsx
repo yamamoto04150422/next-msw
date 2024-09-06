@@ -64,14 +64,19 @@ const ControlledTextField: React.FC<{
   });
 
   return (
-    <TextField
-      {...field}
-      label={label}
-      placeholder={placeholder}
-      error={invalid}
-      helperText={invalid ? `${label}は必須です` : ""}
-      fullWidth
-    />
+    <>
+      <TextField
+        {...field}
+        label={label}
+        placeholder={placeholder}
+        error={invalid}
+        // helperText={invalid ? `${label}は必須です` : ""}
+        fullWidth
+      />
+      <p style={{ color: invalid ? "red" : "transparent", margin: 0 }}>
+        {invalid ? `${label}は必須です` : ""}
+      </p>
+    </>
   );
 };
 
