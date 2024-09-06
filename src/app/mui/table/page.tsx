@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import {
@@ -22,6 +22,21 @@ import {
   TablePagination,
 } from "@mui/material";
 
+// 型定義
+interface FormData {
+  office: string;
+  department: string;
+  qualification: string;
+  qualificationStatus: boolean;
+  qualificationContent: string;
+  remarks?: string;
+}
+
+// モックデータ型
+interface TableRowData extends FormData {
+  id: number;
+}
+
 // バリデーションスキーマ
 const schema = Yup.object().shape({
   office: Yup.string().required("営業所を入力してください"),
@@ -31,6 +46,53 @@ const schema = Yup.object().shape({
   qualificationStatus: Yup.boolean(),
   qualificationContent: Yup.string().required("資格内容を選択してください"),
 });
+
+// useControllerを使用したテキストフィールドコンポーネント
+const ControlledTextField: React.FC<{
+  name: keyof FormData;
+  control: any;
+  label: string;
+  placeholder?: string;
+}> = ({ name, control, label, placeholder }) => {
+  const {
+    field,
+    fieldState: { invalid },
+  } = useController({
+    name,
+    control,
+    rules: { required: true },
+  });
+
+  return (
+    <TextField
+      {...field}
+      label={label}
+      placeholder={placeholder}
+      error={invalid}
+      helperText={invalid ? `${label}は必須です` : ""}
+      fullWidth
+    />
+  );
+};
+
+// useControllerを使用したチェックボックスコンポーネント
+const ControlledCheckbox: React.FC<{
+  name: keyof FormData;
+  control: any;
+  label: string;
+}> = ({ name, control, label }) => {
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  return (
+    <FormControlLabel
+      control={<Checkbox {...field} checked={field.value} />}
+      label={label}
+    />
+  );
+};
 
 const HomePage = () => {
   const {
@@ -60,15 +122,6 @@ const HomePage = () => {
       qualificationContent: "内容1",
       remarks: "備考1",
     },
-    {
-      id: 2,
-      office: "Osaka",
-      department: "HR",
-      qualification: "資格B",
-      qualificationStatus: false,
-      qualificationContent: "内容2",
-      remarks: "備考2",
-    },
     // 他のモックデータ
   ]);
 
@@ -96,102 +149,58 @@ const HomePage = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Controller
+          <ControlledTextField
             name="office"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="営業所"
-                fullWidth
-                error={!!errors.office}
-                helperText={errors.office?.message}
-              />
-            )}
+            label="営業所"
+            placeholder="営業所を入力"
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Controller
+          <ControlledTextField
             name="department"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="部門"
-                fullWidth
-                error={!!errors.department}
-                helperText={errors.department?.message}
-              />
-            )}
+            label="部門"
+            placeholder="部門を入力"
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Controller
+          <ControlledTextField
             name="qualification"
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="資格"
-                fullWidth
-                error={!!errors.qualification}
-                helperText={errors.qualification?.message}
-              />
-            )}
+            label="資格"
+            placeholder="資格を入力"
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Controller
+          <ControlledCheckbox
             name="qualificationStatus"
             control={control}
-            render={({ field }) => (
-              <FormControlLabel
-                control={<Checkbox {...field} checked={field.value} />}
-                label="取得"
-              />
-            )}
+            label="取得"
           />
-          <FormControlLabel control={<Checkbox />} label="未取得" />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Controller
+          <ControlledTextField
             name="qualificationContent"
             control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                label="資格内容"
-                fullWidth
-                error={!!errors.qualificationContent}
-              >
-                <MenuItem value="内容1">内容1</MenuItem>
-                <MenuItem value="内容2">内容2</MenuItem>
-                <MenuItem value="内容3">内容3</MenuItem>
-              </Select>
-            )}
+            label="資格内容"
+            placeholder="資格内容を選択"
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Controller
-            name="remarks"
-            control={control}
-            render={({ field }) => (
-              <Tooltip title={field.value || "備考"}>
-                <TextField
-                  {...field}
-                  label="備考"
-                  fullWidth
-                  error={!!errors.remarks}
-                  helperText={errors.remarks?.message}
-                />
-              </Tooltip>
-            )}
-          />
+          <Tooltip title="備考">
+            <ControlledTextField
+              name="remarks"
+              control={control}
+              label="備考"
+              placeholder="備考を入力"
+            />
+          </Tooltip>
         </Grid>
 
         <Grid item xs={12}>
