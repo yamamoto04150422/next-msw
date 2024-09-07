@@ -73,7 +73,13 @@ const ControlledTextField: React.FC<{
         // helperText={invalid ? `${label}は必須です` : ""}
         fullWidth
       />
-      <p style={{ color: invalid ? "red" : "transparent", margin: 0 }}>
+      <p
+        style={{
+          color: invalid ? "red" : "transparent", // エラーメッセージがない場合は透明
+          margin: 0,
+          minHeight: "2em", // エラーメッセージの高さを確保
+        }}
+      >
         {invalid ? `${label}は必須です` : ""}
       </p>
     </>
