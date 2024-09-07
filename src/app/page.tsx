@@ -83,6 +83,9 @@ export default function Home() {
       <h1>
         <Link href="/mui/table">mui/table</Link>
       </h1>
+      <h1>
+        <Link href="/primeReact/validate">primeReact/validate</Link>
+      </h1>
     </main>
   );
 }
