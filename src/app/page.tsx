@@ -86,6 +86,12 @@ export default function Home() {
       <h1>
         <Link href="/primeReact/validate">primeReact/validate</Link>
       </h1>
+      <h1>
+        <Link href="/simpleGrid">simpleGrid</Link>
+      </h1>
+      <h1>
+        <Link href="/iphoneGrid">iphoneGrid</Link>
+      </h1>
     </main>
   );
 }

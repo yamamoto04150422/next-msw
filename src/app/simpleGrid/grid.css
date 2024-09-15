@@ -1,0 +1,110 @@
+.containerA {
+  background-color: wheat;
+  gap: 4px;
+  display: grid;
+  width: 800px;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: 120px 90px;
+}
+
+.itemAA {
+  grid-column: 1 / 2;
+  /* start end が省略可能 */
+  /* grid-column-start: 1;
+  grid-column-end: 2; */
+  grid-row: 1 / 3;
+  /* grid-row-start: 1;
+  grid-row-end: 3; */
+  border: solid;
+}
+
+.itemAB {
+  border: solid;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.itemAC {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  border: solid;
+}
+
+.containerB {
+  background-color: wheat;
+  /* gap: 4px; */
+  display: grid;
+  width: 800px;
+  grid-template-columns: 140px 120px 410px 1fr;
+  grid-template-rows: 140px 500px 120px;
+  /* 中央寄せ */
+  margin: 0 auto;
+}
+
+.headerB {
+  grid-column: 1/5;
+  /* 数字が続いている場合は省略可能 */
+  /* grid-row: 1/2; */
+  grid-row: 1;
+  border: solid;
+  margin-bottom: 2px;
+}
+
+.navB {
+  grid-column: 1;
+  grid-row: 2;
+  border: solid;
+  margin-right: 2px;
+}
+.aside1B {
+  grid-column: 2;
+  grid-row: 2;
+  border: solid;
+  margin-right: 2px;
+}
+.mainB {
+  grid-column: 3;
+  grid-row: 2;
+  border: solid;
+  margin-right: 2px;
+}
+
+.aside2B {
+  grid-column: 4;
+  grid-row: 2;
+  border: solid;
+}
+
+.footerB {
+  grid-column: 1/5;
+  grid-row: 3;
+  border: solid;
+  margin-top: 2px;
+}
+
+.containerC {
+  background-color: wheat;
+  /* gap: 4px; */
+  display: grid;
+  width: 800px;
+  grid-template-columns: 2fr 3fr 1fr;
+  grid-template-rows: 140px 500px 120px;
+  /* 中央寄せ */
+  margin: 0 auto;
+  gap: 40px 20px;
+}
+
+.headerC,
+.footerC {
+  grid-column: 1/4;
+  /* 省略可能 */
+  /* grid-row: 1; */
+  border: solid;
+}
+.aside1C,
+.mainC,
+.aside2C {
+  /* grid-column: 1;
+  grid-row: 2; */
+  border: solid;
+}
