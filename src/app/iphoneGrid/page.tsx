@@ -33,8 +33,8 @@ export default function Page() {
         </div>
       </div>
 
+      <h2>positionプロパティ</h2>
       <div className="position-container">
-        <h2>positionプロパティ</h2>
         <div className="position">
           <p>1</p>
           <p>2</p>
