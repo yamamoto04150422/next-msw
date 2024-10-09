@@ -39,8 +39,22 @@ interface TableRowData extends FormData {
 
 // バリデーションスキーマ
 const schema = Yup.object().shape({
-  office: Yup.string().required("営業所を入力してください"),
-  department: Yup.string().required("部門を入力してください"),
+  office: Yup.string()
+    .required("営業所を入力してください")
+    .min(3, "営業所は最低3文字である必要があります")
+    .max(10, "営業所は最大10文字まで入力可能です"),
+
+  department: Yup.string()
+    .required("部門を入力してください")
+    .test(
+      "office-department-match",
+      "営業所と部門は同じ値にできません",
+      function (department) {
+        const { office } = this.parent; // 他のフィールドの値にアクセス
+        return office !== department;
+      }
+    ),
+
   qualification: Yup.string().required("資格を入力してください"),
   remarks: Yup.string(),
   qualificationStatus: Yup.boolean(),
@@ -56,7 +70,7 @@ const ControlledTextField: React.FC<{
 }> = ({ name, control, label, placeholder }) => {
   const {
     field,
-    fieldState: { invalid },
+    fieldState: { invalid, error },
   } = useController({
     name,
     control,
@@ -69,19 +83,20 @@ const ControlledTextField: React.FC<{
         {...field}
         label={label}
         placeholder={placeholder}
-        error={invalid}
-        // helperText={invalid ? `${label}は必須です` : ""}
+        error={!!error} // エラーがあるかどうか
+        helperText={error ? error.message : ""} // エラーメッセージを表示
         fullWidth
       />
-      <p
+      {/* いらんけど別のUIライブラリを想定 */}
+      {/* <p
         style={{
           color: invalid ? "red" : "transparent", // エラーメッセージがない場合は透明
           margin: 0,
           minHeight: "2em", // エラーメッセージの高さを確保
         }}
       >
-        {invalid ? `${label}は必須です` : ""}
-      </p>
+        {error ? error.message : ""}
+      </p> */}
     </>
   );
 };
