@@ -82,6 +82,11 @@ npm install react-hook-form
 
 npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
 
+## スケジュール
+
+npm install @fullcalendar/react @fullcalendar/daygrid
+@fullcalendar/timegrid @fullcalendar/interaction
+
 ## Getting Started
 
 First, run the development server:

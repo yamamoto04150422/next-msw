@@ -92,6 +92,9 @@ export default function Home() {
       <h1>
         <Link href="/iphoneGrid">iphoneGrid</Link>
       </h1>
+      <h1>
+        <Link href="/primeReact/calendar">primeReact/calendar</Link>
+      </h1>
     </main>
   );
 }
