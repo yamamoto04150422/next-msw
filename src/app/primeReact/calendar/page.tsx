@@ -117,10 +117,16 @@ export default function Page() {
         events={events}
         initialDate={currentDate} // 現在の日付を初期表示
         eventClick={(info) => {
-          alert(
-            `イベント: ${info.event.title}\n日付: ${info.event.start?.toISOString()}`
-          ); // イベントをクリックした時に情報を表示
+          // イベント名と日付を取得し、アラートで表示
+          const eventTitle = info.event.title;
+          const eventDate = info.event.start; // イベントの日付 (Dateオブジェクト)
+
+          // 日付をフォーマットする（例: yyyy-mm-dd 形式）
+          const formattedDate = eventDate?.toISOString().split("T")[0];
+
+          alert(`イベント: ${eventTitle}\n日付: ${formattedDate}`);
         }}
+        editable
       />
 
       {/* 日付を操作するフッターボタン */}
