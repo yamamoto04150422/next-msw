@@ -29,6 +29,7 @@ interface CalendarEvent {
   title: string;
   start: Date;
   color: string;
+  allDay: boolean;
 }
 
 export default function Page() {
@@ -45,6 +46,7 @@ export default function Page() {
         title: selectedEventType.name,
         start: selectedDate,
         color: selectedEventType.color,
+        allDay: true, // 時間を表示するか
       };
       setEvents((prevEvents) => [...prevEvents, newEvent]);
     } else {
@@ -115,7 +117,7 @@ export default function Page() {
         initialView="dayGridMonth"
         locale={jaLocale}
         events={events}
-        initialDate={currentDate} // 現在の日付を初期表示
+        // initialDate={currentDate} // 現在の日付を初期表示
         eventClick={(info) => {
           // イベント名と日付を取得し、アラートで表示
           const eventTitle = info.event.title;
