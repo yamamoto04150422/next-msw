@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, ChangeEvent } from "react";
 
-export const useAutoKana = () => {
+export const useAutoKana = (nameId: string, kanaId: string) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const nameKanaRef = useRef<HTMLInputElement>(null);
   const [autokana, setAutoKana] = useState<any>(null); // eslint-disable-line
@@ -9,7 +9,7 @@ export const useAutoKana = () => {
     if (typeof window !== "undefined") {
       // クライアントサイドでのみvanilla-autokanaをインポート
       import("vanilla-autokana").then((AutoKana) => {
-        const ak = AutoKana.bind("#personName", "#personNameKana", {});
+        const ak = AutoKana.bind(`${nameId}`, `${kanaId}`, {});
         setAutoKana(ak);
       });
     }
