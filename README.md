@@ -131,3 +131,14 @@ display: "flex"、flexDirection: "column"、alignItems: "center":
 paddingTop: 2:
 
 サイドバー内のコンテンツの上部に適度な余白を設定します。
+
+## 補足　参考
+
+[Markdown記法 チートシート](https://qiita.com/Qiita/items/c686397e4a0f4f11683d)
+
+["use client" は Server Component と Client Component の境界につけよう](https://zenn.dev/luvmini511/articles/ec0e874a2cc1f1)
+
+[結局ReactとNext.jsのどちらで開発を進めればいいの？
+](https://qiita.com/hiroki-yama-1118/items/b3388c5dcb155e2e367d)
+
+[React 19 概念からの理解](https://speakerdeck.com/uhyo/react-19wogai-nian-karali-jie-suru)
