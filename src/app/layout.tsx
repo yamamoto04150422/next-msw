@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
@@ -11,6 +11,7 @@ import HeaderSide from "./components/HeaderSide";
 import { PrimeReactProvider, addLocale, locale } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { LocaleJp } from "./custom/LocaleJp";
+import { useEffectOnce } from "@/hooks/customHooks";
 
 export default function RootLayout({
   children,
@@ -21,6 +22,12 @@ export default function RootLayout({
   const headerTopHeight = 64; // 例: 64px (必要に応じて調整)
   const headerSideWidth = 240; // 例: 240px (必要に応じて調整)
 
+  // FOUC対策
+  const [showScreen, setShowScreen] = useState(false);
+  useEffectOnce(() => {
+    setShowScreen(true);
+  });
+
   // 日本語設定
   addLocale("jp", LocaleJp);
 
@@ -29,35 +36,39 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        {/* <PrimeReactProvider> */}
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* ヘッダーの配置 */}
-          <HeaderTop />
-          <Box sx={{ display: "flex" }}>
-            {/* サイドバー */}
-            <HeaderSide />
-            {/* メインコンテンツ領域 */}
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                padding: 3,
-                height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
-                marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
-                marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
-                overflowY: "auto", // コンテンツが溢れた場合のスクロール
-              }}
-            >
-              {children}
-            </Box>
-          </Box>
-          <footer>
-            {/* フッターの例 */}
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
-          </footer>
-        </ThemeProvider>
-        {/* </PrimeReactProvider> */}
+        {showScreen && (
+          <>
+            {/* <PrimeReactProvider> */}
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              {/* ヘッダーの配置 */}
+              <HeaderTop />
+              <Box sx={{ display: "flex" }}>
+                {/* サイドバー */}
+                <HeaderSide />
+                {/* メインコンテンツ領域 */}
+                <Box
+                  component="main"
+                  sx={{
+                    flexGrow: 1,
+                    padding: 3,
+                    height: `calc(100vh - ${headerTopHeight}px)`, // HeaderTopの高さを引いた値を指定
+                    marginTop: `${headerTopHeight}px`, // HeaderTopの高さ分だけマージンを設定
+                    marginLeft: `${headerSideWidth}px`, // HeaderSideの幅分だけマージンを設定
+                    overflowY: "auto", // コンテンツが溢れた場合のスクロール
+                  }}
+                >
+                  {children}
+                </Box>
+              </Box>
+              <footer>
+                {/* フッターの例 */}
+                <p>&copy; 2024 Your Company. All rights reserved.</p>
+              </footer>
+            </ThemeProvider>
+            {/* </PrimeReactProvider> */}
+          </>
+        )}
       </body>
     </html>
   );
