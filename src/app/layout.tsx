@@ -8,8 +8,9 @@ import "../app/styles/global.css";
 import { Box } from "@mui/material";
 import HeaderTop from "./components/HeaderTop";
 import HeaderSide from "./components/HeaderSide";
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider, addLocale, locale } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { LocaleJp } from "./custom/LocaleJp";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,11 @@ export default function RootLayout({
   // HeaderTopの高さとHeaderSideの幅を変数として管理
   const headerTopHeight = 64; // 例: 64px (必要に応じて調整)
   const headerSideWidth = 240; // 例: 240px (必要に応じて調整)
+
+  // 日本語設定
+  addLocale("jp", LocaleJp);
+
+  locale("jp");
 
   return (
     <html lang="ja">
