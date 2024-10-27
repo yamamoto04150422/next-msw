@@ -1,24 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
-import FullCalendar from "@fullcalendar/react"; // フルカレンダーのコンポーネント
-import dayGridPlugin from "@fullcalendar/daygrid"; // 日表示のプラグイン
-import timeGridPlugin from "@fullcalendar/timegrid"; // 時間表示のプラグイン
-import interactionPlugin from "@fullcalendar/interaction"; // クリックやドラッグのためのプラグイン
-import jaLocale from "@fullcalendar/core/locales/ja"; // 日本語ロケール
-import { Fieldset } from "primereact/fieldset"; // PrimeReactのFieldset
-import { Dropdown } from "primereact/dropdown"; // PrimeReactのDropdown
-import { Calendar as PrimeCalendar } from "primereact/calendar"; // PrimeReactのCalendar
-import { Button } from "primereact/button"; // PrimeReactのButton
+import React, { useState, useRef } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import jaLocale from "@fullcalendar/core/locales/ja";
+import { Fieldset } from "primereact/fieldset";
+import { Dropdown } from "primereact/dropdown";
+import { Calendar as PrimeCalendar } from "primereact/calendar";
+import { Button } from "primereact/button";
 
-// イベントの型定義
 interface EventType {
-  name: string; // labelをnameに変更
-  code: string; // valueをcodeに変更
+  name: string;
+  code: string;
   color: string;
 }
 
-// ドロップダウンの選択肢
 const eventTypes: EventType[] = [
   { name: "会議", code: "meeting", color: "blue" },
   { name: "プレゼン", code: "presentation", color: "green" },
@@ -26,6 +23,7 @@ const eventTypes: EventType[] = [
 ];
 
 interface CalendarEvent {
+  id: string;
   title: string;
   start: Date;
   color: string;
@@ -33,20 +31,49 @@ interface CalendarEvent {
 }
 
 export default function Page() {
-  const [events, setEvents] = useState<CalendarEvent[]>([]); // イベントの型を指定
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [selectedEventType, setSelectedEventType] = useState<EventType>(
     eventTypes[0]
-  ); // 最初のオプションを初期値に
-  const [currentDate, setCurrentDate] = useState<Date>(new Date()); // 現在の日付を管理
+  );
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const calendarRef = useRef<FullCalendar | null>(null); // FullCalendarのrefを設定
 
-  // イベントの追加処理
+  // 年と月の選択肢を定義
+  const years = Array.from({ length: 10 }, (_, i) => ({
+    label: `${new Date().getFullYear() - 5 + i}年`,
+    value: new Date().getFullYear() - 5 + i,
+  }));
+
+  const months = Array.from({ length: 12 }, (_, i) => ({
+    label: `${i + 1}月`,
+    value: i, // インデックスを0始まりに修正
+  }));
+
+  // 年変更時の処理
+  const handleYearChange = (e: { value: number }) => {
+    const newDate = new Date(currentDate);
+    newDate.setFullYear(e.value);
+    setCurrentDate(newDate);
+    calendarRef.current?.getApi().gotoDate(newDate); // カレンダーの日付を更新
+  };
+
+  // 月変更時の処理
+  const handleMonthChange = (e: { value: number }) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(e.value); // 月の値をそのままセット
+    setCurrentDate(newDate);
+    calendarRef.current?.getApi().gotoDate(newDate); // カレンダーの日付を更新
+  };
+
   const handleAddEvent = (selectedDate: Date | null) => {
     if (selectedEventType && selectedDate) {
       const newEvent: CalendarEvent = {
+        id: String(new Date().getTime()),
         title: selectedEventType.name,
-        start: selectedDate,
+        start: new Date(selectedDate),
         color: selectedEventType.color,
-        allDay: true, // 時間を表示するか
+        allDay: true,
       };
       setEvents((prevEvents) => [...prevEvents, newEvent]);
     } else {
@@ -54,25 +81,43 @@ export default function Page() {
     }
   };
 
-  // 日付を1日増やす処理
   const handleNextDay = () => {
-    const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + 1);
-    setCurrentDate(nextDate);
+    if (!selectedEventId) return;
+    setEvents((prevEvents) =>
+      prevEvents.map((event) =>
+        event.id === selectedEventId
+          ? {
+              ...event,
+              start: new Date(event.start.getTime() + 24 * 60 * 60 * 1000),
+            }
+          : event
+      )
+    );
   };
 
-  // 日付を1日減らす処理
   const handlePreviousDay = () => {
-    const previousDate = new Date(currentDate);
-    previousDate.setDate(currentDate.getDate() - 1);
-    setCurrentDate(previousDate);
+    if (!selectedEventId) return;
+    setEvents((prevEvents) =>
+      prevEvents.map((event) =>
+        event.id === selectedEventId
+          ? {
+              ...event,
+              start: new Date(event.start.getTime() - 24 * 60 * 60 * 1000),
+            }
+          : event
+      )
+    );
+  };
+
+  const handleDeselectEvent = () => {
+    setSelectedEventId(null); // 選択を解除
   };
 
   return (
     <>
       <Fieldset legend="イベントの追加" toggleable>
+        {/* イベントの種類と日付選択 */}
         <div className="p-field p-grid">
-          {/* Dropdown for event type */}
           <div className="p-col-6">
             <Dropdown
               value={selectedEventType.code}
@@ -90,8 +135,6 @@ export default function Page() {
               optionValue="code"
             />
           </div>
-
-          {/* Calendar for date selection */}
           <div className="p-col-6">
             <PrimeCalendar
               value={currentDate}
@@ -102,51 +145,78 @@ export default function Page() {
             />
           </div>
         </div>
-
-        {/* Button to add event */}
         <Button
           label="イベントを追加"
           icon="pi pi-plus"
-          onClick={() => handleAddEvent(currentDate)} // currentDateを引数に渡す
+          onClick={() => handleAddEvent(currentDate)}
         />
       </Fieldset>
 
-      {/* FullCalendar */}
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        locale={jaLocale}
-        events={events}
-        // initialDate={currentDate} // 現在の日付を初期表示
-        eventClick={(info) => {
-          // イベント名と日付を取得し、アラートで表示
-          const eventTitle = info.event.title;
-          const eventDate = info.event.start; // イベントの日付 (Dateオブジェクト)
-
-          // 日付をフォーマットする（例: yyyy-mm-dd 形式）
-          const formattedDate = eventDate?.toISOString().split("T")[0];
-
-          alert(`イベント: ${eventTitle}\n日付: ${formattedDate}`);
-        }}
-        editable
-      />
-
-      {/* 日付を操作するフッターボタン */}
+      {/* 年と月のドロップダウン */}
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "20px",
+        }}
       >
-        <Button
-          label="前日"
-          icon="pi pi-arrow-left"
-          onClick={handlePreviousDay}
+        <Dropdown
+          value={currentDate.getFullYear()}
+          options={years}
+          onChange={handleYearChange}
+          placeholder="年を選択"
         />
-        <Button
-          label="次日"
-          icon="pi pi-arrow-right"
-          onClick={handleNextDay}
-          style={{ marginLeft: "10px" }}
+        <Dropdown
+          value={currentDate.getMonth()}
+          options={months}
+          onChange={handleMonthChange}
+          placeholder="月を選択"
         />
       </div>
+
+      {/* FullCalendar */}
+      <FullCalendar
+        ref={calendarRef}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        locale={jaLocale}
+        events={events.map((event) => ({
+          ...event,
+          backgroundColor:
+            event.id === selectedEventId ? "yellow" : event.color,
+        }))}
+        editable
+        height="auto"
+        headerToolbar={{
+          left: "",
+          center: "title",
+          right: "today prev,next",
+        }}
+        datesSet={(dateInfo) => {
+          const newDate = new Date(dateInfo.start);
+          newDate.setMonth(newDate.getMonth() + 1); // カレンダーの月を調整
+          setCurrentDate(newDate);
+        }}
+      />
+      <Button
+        label="前日"
+        icon="pi pi-arrow-left"
+        onClick={handlePreviousDay}
+      />
+      <Button
+        label="次日"
+        icon="pi pi-arrow-right"
+        onClick={handleNextDay}
+        style={{ marginLeft: "10px" }}
+      />
+      <Button
+        label="選択解除"
+        icon="pi pi-times"
+        onClick={handleDeselectEvent}
+        className="p-button-secondary"
+        style={{ marginLeft: "10px" }}
+      />
     </>
   );
 }
