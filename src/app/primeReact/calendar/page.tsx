@@ -113,6 +113,10 @@ export default function Page() {
     setSelectedEventId(null); // 選択を解除
   };
 
+  const handleEventClick = (info: any) => {
+    setSelectedEventId(info.event.id);
+  };
+
   return (
     <>
       <Fieldset legend="イベントの追加" toggleable>
@@ -186,6 +190,7 @@ export default function Page() {
           backgroundColor:
             event.id === selectedEventId ? "yellow" : event.color,
         }))}
+        eventClick={handleEventClick}
         editable
         height="auto"
         headerToolbar={{
